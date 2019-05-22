@@ -10,7 +10,7 @@ type Domain struct {
 }
 
 func (dns Domain) CheckNameServer() {
-	fmt.Println("Sprawdzanie domeny: " + dns.Name)
+	fmt.Println("Checking domain: " + dns.Name)
 }
 
 func (dns Domain) checkARecord(domainName string) {
@@ -19,7 +19,7 @@ func (dns Domain) checkARecord(domainName string) {
 		panic(err)
 	}
 	if len(names) == 0 {
-		fmt.Printf("no record")
+		fmt.Printf("Records not found")
 	}
 
 	for _, name := range names {
@@ -34,7 +34,7 @@ func (dns Domain) checkARecord(domainName string) {
 func (dns Domain) checkMXRecord(domainName string) {
 	mxs, err := net.LookupMX(domainName)
 	if err != nil {
-		fmt.Println("Domena nie ma rekordu MX")
+		fmt.Println("Domain with MX record")
 	}
 	for _, mx := range mxs {
 		names, err := net.LookupHost(mx.Host)
@@ -42,7 +42,7 @@ func (dns Domain) checkMXRecord(domainName string) {
 			panic(err)
 		}
 		if len(names) == 0 {
-			fmt.Printf("no record")
+			fmt.Printf("Records not found")
 		}
 		for _, name := range names {
 			rev, err := net.LookupAddr(string(name))
@@ -57,7 +57,7 @@ func (dns Domain) checkMXRecord(domainName string) {
 func (dns Domain) checkNSRecord(domainName string) {
 	nss, err := net.LookupNS(domainName)
 	if err != nil {
-		fmt.Println("Domena nie ma rekordu NS")
+		fmt.Println("Domain without NS record?")
 	}
 	for _, ns := range nss {
 		names, err := net.LookupHost(ns.Host)
@@ -65,7 +65,7 @@ func (dns Domain) checkNSRecord(domainName string) {
 			panic(err)
 		}
 		if len(names) == 0 {
-			fmt.Printf("no record")
+			fmt.Printf("Records not found")
 		}
 		for _, name := range names {
 			rev, err := net.LookupAddr(string(name))
@@ -83,7 +83,7 @@ func (dns Domain) checkTXTRecord(domainName string) {
 		panic(err)
 	}
 	if len(names) == 0 {
-		fmt.Printf("no record")
+		fmt.Printf("Records not found")
 	}
 
 	for _, name := range names {

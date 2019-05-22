@@ -15,21 +15,21 @@ func (httpConnect Http) Run(scheme string, domainName string) {
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Println("Kod HTTP:", resp.StatusCode, http.StatusText(resp.StatusCode))
+	fmt.Println("HTTP Code:", resp.StatusCode, http.StatusText(resp.StatusCode))
 	if resp.StatusCode >= 200 && resp.StatusCode <= 299 {
-		fmt.Println("Strona powinna śmigać")
+		fmt.Println("Website work properly")
 	} else if resp.StatusCode >= 500 && resp.StatusCode <= 599 {
-		fmt.Println("Nie działa strona")
+		fmt.Println("Server Error")
 	} else if resp.StatusCode >= 300 && resp.StatusCode <= 399 {
 		if scheme == "https://" {
-			fmt.Println("Powstała pętla przekierowań - wina klienta")
+			fmt.Println("Redirect loop error")
 			os.Exit(0)
 		}
 		tmp := resp.Header.Get("Location")
-		fmt.Printf("Przekierowanie na %s\n", tmp)
+		fmt.Printf("Redirect: %s\n", tmp)
 
 		//httpConnect.Run("https://", domainName)
 	} else {
-		fmt.Println("Strona nie działa, bo zapewne jej nie ma. Sprawdź wskazania, blokadę oraz czy jego pliki istnieją")
+		fmt.Println("Website not found. Check ban and website existing")
 	}
 }

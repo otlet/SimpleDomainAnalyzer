@@ -19,7 +19,7 @@ func main() {
 	SetupCloseHandler()
 
 	if len(os.Args) < 2 {
-		color.Red("Halo, podaj domenę!")
+		color.Red("Usage: superbok example.com")
 		os.Exit(1)
 	}
 
@@ -32,7 +32,7 @@ func main() {
 	validated := RegExp.MatchString(name)
 
 	if !validated {
-		color.Red("Podaj domenę, a nie jakieś: %s", name)
+		color.Red("Bad domain name: %s", name)
 		os.Exit(1)
 	}
 
@@ -40,13 +40,13 @@ func main() {
 		Name: name,
 	}
 
-	color.Red("### Weryfikacja DNS ###")
+	color.Red("### Checking DNS ###")
 	dns.CheckRecords(name)
 
 	strona := http.Http{}
 
 	fmt.Println()
-	color.Red("### Weryfikacja Strony ###")
+	color.Red("### Checking Website ###")
 	strona.Run("http://", name)
 }
 
