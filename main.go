@@ -6,11 +6,11 @@ package main
 import (
 	"fmt"
 	"github.com/fatih/color"
+	"github.com/otlet/SimpleDomainAnalyzer/domain"
+	"github.com/otlet/SimpleDomainAnalyzer/http"
 	"os"
 	"os/signal"
 	"regexp"
-	"superbok/domain"
-	"superbok/http"
 	"syscall"
 )
 
@@ -19,7 +19,7 @@ func main() {
 	SetupCloseHandler()
 
 	if len(os.Args) < 2 {
-		color.Red("Usage: superbok example.com")
+		color.Red("Usage: SimpleDomainAnalyzer example.com")
 		os.Exit(1)
 	}
 
@@ -55,7 +55,7 @@ func SetupCloseHandler() {
 	signal.Notify(c, os.Interrupt, syscall.SIGTERM)
 	go func() {
 		<-c
-		fmt.Println("\r- Ctrl+C <- Ale czemu mnie naciskasz?")
+		fmt.Println("\r- Ctrl+C <- Don't touch this!")
 		os.Exit(0)
 	}()
 }
