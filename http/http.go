@@ -7,9 +7,7 @@ import (
 	"os"
 )
 
-type Http struct {
-	Name string // Domain name
-}
+type Http struct{}
 
 func (httpConnect Http) Run(scheme string, domainName string) {
 	name := scheme + domainName

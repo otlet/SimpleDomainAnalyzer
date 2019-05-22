@@ -8,6 +8,7 @@ import (
 	"github.com/fatih/color"
 	"os"
 	"os/signal"
+	"regexp"
 	"superbok/domain"
 	"superbok/http"
 	"syscall"
@@ -22,22 +23,31 @@ func main() {
 		os.Exit(1)
 	}
 
-	hello := os.Args[1]
+	name := os.Args[1]
+
+	domainRegExp := `^(([a-zA-Z]{1})|([a-zA-Z]{1}[a-zA-Z]{1})|([a-zA-Z]{1}[0-9]{1})|([0-9]{1}[a-zA-Z]{1})|([a-zA-Z0-9][a-zA-Z0-9-_]{1,61}[a-zA-Z0-9]))\.([a-zA-Z]{2,6}|[a-zA-Z0-9-]{2,30}\.[a-zA-Z
+ ]{2,3})$`
+	RegExp := regexp.MustCompile(domainRegExp)
+
+	validated := RegExp.MatchString(name)
+
+	if !validated {
+		color.Red("Podaj domenę, a nie jakieś: %s", name)
+		os.Exit(1)
+	}
 
 	dns := domain.Domain{
-		Name: hello,
+		Name: name,
 	}
 
 	color.Red("### Weryfikacja DNS ###")
-	dns.CheckRecords(hello)
+	dns.CheckRecords(name)
 
-	strona := http.Http{
-		hello,
-	}
+	strona := http.Http{}
 
 	fmt.Println()
 	color.Red("### Weryfikacja Strony ###")
-	strona.Run("http://", hello)
+	strona.Run("http://", name)
 }
 
 func SetupCloseHandler() {
