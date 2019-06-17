@@ -17,7 +17,7 @@ import (
 
 func main() {
 
-	SetupCloseHandler()
+	setupCloseHandler()
 
 	if len(os.Args) < 2 {
 		color.Red("Usage: SimpleDomainAnalyzer example.com")
@@ -58,7 +58,7 @@ func main() {
 	ssl.CheckSSL()
 }
 
-func SetupCloseHandler() {
+func setupCloseHandler() {
 	c := make(chan os.Signal, 2)
 	signal.Notify(c, os.Interrupt, syscall.SIGTERM)
 	go func() {
