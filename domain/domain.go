@@ -80,7 +80,7 @@ func (dns Domain) checkNSRecord(domainName string) {
 func (dns Domain) checkTXTRecord(domainName string) {
 	names, err := net.LookupTXT(domainName)
 	if err != nil {
-		panic(err)
+		fmt.Println(err)
 	}
 	if len(names) == 0 {
 		fmt.Printf("Records not found")

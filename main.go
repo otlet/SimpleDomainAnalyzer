@@ -6,6 +6,7 @@ package main
 import (
 	"fmt"
 	"github.com/fatih/color"
+	"github.com/otlet/SimpleDomainAnalyzer/darkssl"
 	"github.com/otlet/SimpleDomainAnalyzer/domain"
 	"github.com/otlet/SimpleDomainAnalyzer/http"
 	"os"
@@ -48,6 +49,13 @@ func main() {
 	fmt.Println()
 	color.Red("### Checking Website ###")
 	strona.Run("http://", name)
+
+	fmt.Println()
+	color.Red("### Checking SSL ###")
+	ssl := darkssl.DarkSSL{
+		DomainName: name,
+	}
+	ssl.CheckSSL()
 }
 
 func SetupCloseHandler() {
