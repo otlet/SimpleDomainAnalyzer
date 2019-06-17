@@ -1,4 +1,5 @@
 # Simple Domain Analyzer
+[![Go Report Card](https://goreportcard.com/badge/github.com/otlet/SimpleDomainAnalyzer)](https://goreportcard.com/report/github.com/otlet/SimpleDomainAnalyzer)
 
 An application for quick verification of basic things while analyzing a website on shared hosting.
 
